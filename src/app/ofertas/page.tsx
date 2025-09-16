@@ -14,7 +14,7 @@ interface Offer {
   offer_type: string;
 }
 
-const OFFERS_API_URL = "https://servicoofertas-1z56zqs6h-jeanmnorhens-projects.vercel.app";
+const OFFERS_API_URL = process.env.NEXT_PUBLIC_OFFERS_API_URL;
 
 export default function OfertasPage() {
   const { idToken, currentUser, loading: authLoading } = useAuth();
