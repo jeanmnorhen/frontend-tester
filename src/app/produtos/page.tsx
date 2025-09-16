@@ -13,7 +13,7 @@ interface Product {
   category: string;
 }
 
-const PRODUCTS_API_URL = "https://servico-produtos-mjf9dfpf7-jeanmnorhens-projects.vercel.app";
+const PRODUCTS_API_URL = "https://servico-produtos-796royh1m-jeanmnorhens-projects.vercel.app";
 
 export default function ProdutosPage() {
   const { idToken, currentUser, loading: authLoading } = useAuth();

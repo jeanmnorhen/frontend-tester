@@ -14,7 +14,7 @@ interface Store {
   location?: { latitude?: number; longitude?: number }; // Allow undefined for lat/lon
 }
 
-const STORES_API_URL = "https://servico-lojas-YOUR_DEPLOYMENT_URL.vercel.app"; // TODO: Update with actual deploy URL
+const STORES_API_URL = "https://servicolojas-8lycof1gv-jeanmnorhens-projects.vercel.app";
 
 export default function LojasPage() {
   const { idToken, currentUser, loading: authLoading } = useAuth();

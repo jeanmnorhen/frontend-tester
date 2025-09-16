@@ -14,7 +14,7 @@ interface SearchResult {
   // Add other relevant fields based on your data structure
 }
 
-const SEARCH_API_URL = "https://servico-busca-YOUR_DEPLOYMENT_URL.vercel.app"; // TODO: Update with actual deploy URL
+const SEARCH_API_URL = "https://servico-busca-rarumyrx5-jeanmnorhens-projects.vercel.app";
 
 export default function SearchPage() {
   const { idToken, currentUser, loading: authLoading } = useAuth();

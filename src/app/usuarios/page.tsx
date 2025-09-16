@@ -13,7 +13,7 @@ interface User {
 }
 
 // URL da API de produção
-const USERS_API_URL = process.env.NEXT_PUBLIC_USERS_API_URL;
+const USERS_API_URL = "https://servico-usuarios-c5ifynq4r-jeanmnorhens-projects.vercel.app";
 
 export default function UsuariosPage() {
   const { idToken, currentUser, loading: authLoading } = useAuth();

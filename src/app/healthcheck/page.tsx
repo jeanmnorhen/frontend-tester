@@ -11,7 +11,7 @@ export default function HealthCheckPage() {
   useEffect(() => {
     const fetchHealth = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HEALTHCHECK_API_URL}/health`);
+                const response = await fetch(`https://servico-healthcheck-17676sqek-jeanmnorhens-projects.vercel.app/health`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
