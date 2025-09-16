@@ -14,7 +14,7 @@ interface SearchResult {
   // Add other relevant fields based on your data structure
 }
 
-const SEARCH_API_URL = "https://servico-busca-rarumyrx5-jeanmnorhens-projects.vercel.app";
+const SEARCH_API_URL = process.env.NEXT_PUBLIC_SEARCH_API_URL;
 
 export default function SearchPage() {
   const { idToken, currentUser, loading: authLoading } = useAuth();
