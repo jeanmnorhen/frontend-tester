@@ -51,6 +51,9 @@ export default function RootLayout({
                 <Link href="/ofertas" className="text-gray-300 hover:text-white">
                   Offers
                 </Link>
+                <Link href="/search" className="text-gray-300 hover:text-white">
+                  Search
+                </Link>
               </div>
             </div>
           </nav>
