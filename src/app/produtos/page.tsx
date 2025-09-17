@@ -20,6 +20,7 @@ export default function ProdutosPage() {
 
   const [product, setProduct] = useState<Partial<Product>>({ name: "", store_id: "", price: 0, category: "" });
   const [productIdToFetch, setProductIdToFetch] = useState("");
+  const [allProducts, setAllProducts] = useState<Product[]>([]); // New state for listing all products
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -143,6 +144,27 @@ export default function ProdutosPage() {
     }
   };
 
+  const handleFetchAllProducts = async () => {
+    if (!idToken) return setError("Login necessário.");
+    clearMessages();
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${PRODUCTS_API_URL}/api/products`, {
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || `HTTP error! status: ${response.status}`);
+      setAllProducts(data.products || []); // Assuming the API returns { products: [...] }
+      setMessage(`Total de ${data.products?.length || 0} produtos encontrados.`);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err));
+      setAllProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (authLoading) return <div className="text-center p-10">Carregando autenticação...</div>;
 
   if (!currentUser) {
@@ -173,6 +195,50 @@ export default function ProdutosPage() {
             {loading ? "Buscando..." : "Buscar"}
           </button>
         </form>
+      </div>
+
+      <div className="bg-white p-4 rounded shadow-md mb-6">
+        <h2 className="text-xl font-semibold mb-4">Listar Todos os Produtos</h2>
+        <button onClick={handleFetchAllProducts} className="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700" disabled={loading}>
+          {loading ? "Carregando..." : "Listar Todos"}
+        </button>
+        {allProducts.length > 0 && (
+          <div className="mt-4 max-h-60 overflow-y-auto">
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b">ID</th>
+                  <th className="py-2 px-4 border-b">Nome</th>
+                  <th className="py-2 px-4 border-b">Loja ID</th>
+                  <th className="py-2 px-4 border-b">Preço</th>
+                  <th className="py-2 px-4 border-b">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allProducts.map((p) => (
+                  <tr key={p.id} className="hover:bg-gray-100">
+                    <td className="py-2 px-4 border-b text-sm">{p.id}</td>
+                    <td className="py-2 px-4 border-b text-sm">{p.name}</td>
+                    <td className="py-2 px-4 border-b text-sm">{p.store_id}</td>
+                    <td className="py-2 px-4 border-b text-sm">{p.price}</td>
+                    <td className="py-2 px-4 border-b">
+                      <button
+                        onClick={() => {
+                          setProduct(p);
+                          setProductIdToFetch(p.id);
+                          setMessage("Produto carregado para edição.");
+                        }}
+                        className="text-indigo-600 hover:text-indigo-900 text-sm"
+                      >
+                        Editar/Ver
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       <div className="bg-white p-4 rounded shadow-md">
